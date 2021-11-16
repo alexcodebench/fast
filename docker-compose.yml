@@ -3,6 +3,7 @@ services:
   fastapi:
     container_name: fastapi
     image: tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim
+    restart: unless-stopped
     # environment:
     ports:
       - 8081:80
