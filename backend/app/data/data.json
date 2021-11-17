@@ -1,0 +1,54 @@
+{
+    "clubs": [
+        {
+            "club_address": "Longpipe road",
+            "club_members": [
+                {
+                    "age": 30,
+                    "name": "Peter"
+                },
+                {
+                    "age": 30,
+                    "name": "David"
+                }
+            ],
+            "club_name": "Ivy"
+        },
+        {
+            "club_address": "Bradfor road",
+            "club_members": [
+                {
+                    "age": 35,
+                    "name": "Mike"
+                },
+                {
+                    "age": 32,
+                    "name": "Lucas"
+                },
+                {
+                    "age": 39,
+                    "name": "Fann"
+                }
+            ],
+            "club_name": "Daisy"
+        },
+        {
+            "club_address": "Toronto",
+            "club_members": [
+                {
+                    "age": 35,
+                    "name": "Mike"
+                },
+                {
+                    "age": 32,
+                    "name": "Lucas"
+                },
+                {
+                    "age": 39,
+                    "name": "Fann"
+                }
+            ],
+            "club_name": "Alex"
+        }
+    ]
+}

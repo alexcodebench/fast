@@ -1,15 +1,24 @@
-from typing import Optional
+from typing import List
+import json
+import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.encoders import jsonable_encoder
 
+from .models import Club, FileData
 
-app = FastAPI()
 
 origins = [
     "http://localhost",
     "http://localhost:4200",
+    # TODO: add prod hosts
 ]
+
+parent_dir_path = os.path.dirname(os.path.realpath(__file__))
+DATA_FILE_PATE = os.path.join(parent_dir_path, "data/data.json")
+
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,16 +28,32 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World!!!"}
+def read_data(file_path:str) -> FileData:
+    file_data: FileData 
+    with open(file_path, 'r') as f:
+        file_data = json.load(f)
+    return file_data
 
-@app.get("/test")
-def test():
-    return {"test":"good"}
+def write_data(file_path: str, file_data: FileData):
+    with open(file_path, 'w') as f:
+        json_compatible_item_data  = jsonable_encoder(file_data, )
+        json.dump(json_compatible_item_data, f, indent=4, sort_keys=True)
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/clubs/")
+def get_clubs() -> List[Club]:
+    clubs = read_data(DATA_FILE_PATE)
+    return clubs
+
+@app.post("/clubs/")
+def post_clubs(file_data: FileData) -> List[Club]:
+    print(file_data)
+    write_data(DATA_FILE_PATE, file_data)
+    return file_data
+
+    
+
+# @app.get("/items/{item_id}")
+# def read_item(item_id: int, q: Optional[str] = None):
+#     return {"item_id": item_id, "q": q}
 
     
