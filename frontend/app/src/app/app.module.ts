@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+
 
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 
@@ -34,6 +36,7 @@ registerLocaleData(en);
     IconsProviderModule,
     NzLayoutModule,
     NzMenuModule,
+    NzPageHeaderModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

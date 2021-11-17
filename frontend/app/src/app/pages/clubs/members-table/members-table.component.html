@@ -1,45 +1,94 @@
 
-    <nz-table #nestedTable [nzData]="clubFileData" [nzPageSize]="10">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Address</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-template ngFor let-data [ngForOf]="nestedTable.data">
-          <tr>
-            <td [(nzExpand)]="data.expand"></td>
-            <td>{{ data.club_name }}</td>
-            <td>{{ data.club_address }}</td>
-            <td>
-              <a>Publish</a>
-            </td>
-          </tr>
-          <tr [nzExpand]="data.expand">
-            <nz-table #innerTable [nzData]="data.club_members" nzSize="middle" [nzShowPagination]="false">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Age</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of innerTable.data">
-                  <td>{{ data.name }}</td>
-                  <td>{{ data.age }}</td>
-                  <td>
-                    <span class="table-operation">
-                      <a>More</a>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </nz-table>
-          </tr>
-        </ng-template>
-      </tbody>
-    </nz-table>
+<div nz-row nz-row nzJustify="end" style="margin-bottom: 0.5rem;">
+  <button nz-button (click)="save()" nzType="primary">
+    Done/Save
+  </button>
+</div>
+<nz-table #nestedTable nzOuterBordered [nzData]="clubs" [nzPageSize]="10">
+  <thead>
+    <tr>
+      <th></th>
+      <th [nzSortFn]="compareFuncs.compareClubName">Club Name</th>
+      <th [nzSortFn]="compareFuncs.compareClubAddress">Address</th>
+      <th [nzSortFn]="compareFuncs.compareClubSize">Club Members</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data [ngForOf]="nestedTable.data">
+      <tr class="parent-row">
+        <td [(nzExpand)]="data.expand"></td>
+        <td>{{ data.club_name }}</td>
+        <td>{{ data.club_address }}</td>
+        <td>
+          <span class="table-operation">
+            <a (click)="data.expand = !data.expand">
+              <span *ngIf="!data.expand">Show</span>
+              <span *ngIf="data.expand">Hide</span>
+              ({{ data.club_members.length }}) Members</a
+            >
+          </span>
+        </td>
+      </tr>
+      <tr [nzExpand]="data.expand">
+        <nz-table
+          #innerTable
+          nzOuterBordered
+          nzTitle="Members in {{ data.club_name }} Club"
+          [nzData]="data.club_members"
+          [nzShowPagination]="false"
+        >
+          <thead>
+            <tr>
+              <th [nzSortFn]="compareFuncs.compareMemberName">Name</th>
+              <th [nzSortFn]="compareFuncs.compareMemberAge">Age</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let clubMember of innerTable.data">
+              <td style="width: 12em">
+                <input #cellStatus hidden />
+                <div
+                  class="editable-cell"
+                  (click)="cellStatus.value = 'editing'"
+                  [hidden]="cellStatus.value == 'editing'"
+                >
+                  {{ clubMember.name }}
+                </div>
+                <input
+                  class="edit-input"
+                  autofocus
+                  #cellInput
+                  (blur)="cellStatus.value = ''"
+                  [hidden]="cellStatus.value != 'editing'"
+                  type="text"
+                  nz-input
+                  [(ngModel)]="clubMember.name"
+                />
+              </td>
+              <td style="width: 12em">
+                <input #cellStatus hidden />
+                <div
+                  class="editable-cell"
+                  (click)="cellStatus.value = 'editing'"
+                  [hidden]="cellStatus.value == 'editing'"
+                >
+                  {{ clubMember.age }}
+                </div>
+                <input
+                  class="edit-input"
+                  autofocus
+                  #cellInput
+                  (blur)="cellStatus.value = ''"
+                  [hidden]="cellStatus.value != 'editing'"
+                  type="text"
+                  nz-input
+                  [(ngModel)]="clubMember.age"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
