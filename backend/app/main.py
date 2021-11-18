@@ -12,7 +12,7 @@ from .models import Club, FileData
 origins = [
     "http://localhost",
     "http://localhost:4200",
-    # TODO: add prod hosts
+    "# TODO: add prod hosts"
 ]
 
 parent_dir_path = os.path.dirname(os.path.realpath(__file__))

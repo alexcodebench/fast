@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'http://127.0.0.1:8081' //TODO: change to deployed host
+  api: 'fastapi:8081' // "fastapi" is the docker image name
 };

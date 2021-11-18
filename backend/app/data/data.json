@@ -12,7 +12,7 @@
                     "name": "David"
                 }
             ],
-            "club_name": "Ivy"
+            "club_name": "Ivya Mocha"
         },
         {
             "club_address": "Bradfor road",
@@ -36,7 +36,7 @@
             "club_address": "Toronto",
             "club_members": [
                 {
-                    "age": 35,
+                    "age": 103,
                     "name": "Mike"
                 },
                 {
@@ -48,7 +48,7 @@
                     "name": "Fann"
                 }
             ],
-            "club_name": "Alex"
+            "club_name": "Alex L"
         }
     ]
 }
