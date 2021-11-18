@@ -1,7 +1,11 @@
 ::ng-deep.ant-table-title {
-  text-align: center;
+  /* text-align: center; */
   font-weight:bolder;
 }
+
+/* ::ng-deep.ant-layout-sider {
+  background-color: transparent;
+} */
 
 .parent-row {
   border: 1px solid transparent;

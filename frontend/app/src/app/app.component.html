@@ -15,7 +15,7 @@
           nzType="thunderbolt"
           nzTheme="outline"
         ></i>
-        <span class="site-heading">Fast Club</span>
+        <span class="site-heading">Fast Club Demo</span>
       </a>
     </div>
     <ul
@@ -24,23 +24,28 @@
       nzMode="inline"
       [nzInlineCollapsed]="isCollapsed"
     >
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+      <li nz-menu-item nzMatchRouter>
+        <i nz-icon nzType="thunderbolt"></i>
+        <a routerLink="/clubs">App - Club List</a>
+      </li>
+
+      <li nz-submenu nzOpen nzTitle="Documentations" nzIcon="form">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/clubs">Club List</a>
+            <a>About This App</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a>About</a>
+            <a>Dev Notes</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a>Next Steps</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Code Base on Github" nzIcon="github">
+      <li nz-submenu nzOpen nzTitle="Code Base" nzIcon="github">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
+            <a href="https://github.com/alexcodebench/fastclub" target="_blank">Github</a>
           </li>
         </ul>
       </li>
@@ -59,7 +64,8 @@
         <nz-page-header [nzGhost]="false">
           <nz-page-header-title>Club List</nz-page-header-title>
           <nz-page-header-subtitle style="color: orange"
-            >(Double Click a Table Cell to Edit Content)</nz-page-header-subtitle
+            >(Double Click a Table Cell to Edit
+            Content)</nz-page-header-subtitle
           >
         </nz-page-header>
       </div>

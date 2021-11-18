@@ -6,7 +6,7 @@ import { ClubsRoutingModule } from './clubs-routing.module';
 import { ClubsComponent } from './clubs.component';
 import { MembersTableComponent } from './members-table/members-table.component';
 import { NzUiModule } from "@app/shared/nz-ui.module";
-
+import { ZorroSharperModule } from "zorro-sharper";
 
 @NgModule({
   declarations: [
@@ -18,6 +18,7 @@ import { NzUiModule } from "@app/shared/nz-ui.module";
     FormsModule,
     ClubsRoutingModule,
     NzUiModule,
+    ZorroSharperModule,
   ],
   exports: [
     MembersTableComponent,
