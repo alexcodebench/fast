@@ -1,43 +1,42 @@
 version: '3.8'
 services:
-  # ngxpm:
-  #   container_name: ngxpm
-  #   image: 'jc21/nginx-proxy-manager:latest'
-  #   restart: unless-stopped
-  #   ports:
-  #     - '80:80'
-  #     - '81:81'
-  #     - '443:443'
-  #   volumes:
-  #     - ./data:/data
-  #     - ./letsencrypt:/etc/letsencrypt
+  ngxpm:
+    container_name: ngxpm
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+      # - ./peekapage.com:/etc/nginx/vhost.d/peekapage.com
 
   fastapi:
-    container_name: fastapi
-    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+    build: ./backend/.
     # restart: unless-stopped
     # environment:
     ports:
       - 8081:80
-    volumes:
-      - type: bind
-        source: ./backend/app
-        target: /app
-  
-  # angular:
-  #   container_name: angular
-  #   image: nginx:1.17.1-alpine
-  #   restart: unless-stopped
-  #   # environment:
-  #   # ports:
-  #   #   - 80:80
     # volumes:
     #   - type: bind
-    #     source: ./frontend/app
+    #     source: ./backend/app
     #     target: /app
   
-  #   depends_on:
-  #     - fastapi
+  angular:
+    container_name: angular
+    image: nginx:1.17.1-alpine
+    restart: unless-stopped
+    # environment:
+    # ports:
+    #   - 80:80
+    volumes:
+      - ./frontend/app/dist/app:/usr/share/nginx/html
+      - ./frontend/frontend-nginx-conf:/etc/nginx/conf.d
+  
+    depends_on:
+      - fastapi
 
 
 # volumes:

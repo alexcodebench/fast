@@ -14,11 +14,11 @@ export class ClubService {
   constructor(private httpClient: HttpClient) {}
 
   getClubs(): Observable<ClubFileData> {
-    return this.httpClient.get<ClubFileData>(`${API_ENDPOINT}/clubs`);
+    return this.httpClient.get<ClubFileData>(`${API_ENDPOINT}/clubs/`);
   }
 
   saveClubs(data: ClubFileData): Observable<ClubFileData> {
-    return this.httpClient.post<ClubFileData>(`${API_ENDPOINT}/clubs`, data);
+    return this.httpClient.post<ClubFileData>(`${API_ENDPOINT}/clubs/`, data);
   }
 
 }

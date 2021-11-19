@@ -38,13 +38,13 @@ export class MembersTableComponent implements OnInit {
       .saveClubs({ clubs: this.clubs.map((c) => c.toDomainModel()) })
       .subscribe(
         (returnedValue: ClubFileData) => {
-          this.message.create('Success', 'Club data successfully updated');
+          this.message.create('success', 'Club data successfully updated');
           this.tableEdited = false;
           // console.log(returnedValue);
         },
         (error: any) => {
           this.message.create(
-            'Failed',
+            'error',
             'There was some errors saving the changes'
           );
           console.error(error);
@@ -65,7 +65,7 @@ export class MembersTableComponent implements OnInit {
 
       (error: any) => {
         this.message.create(
-          'Failed',
+          'error',
           'Failed to retrieve club information'
         );
         console.error(error);
