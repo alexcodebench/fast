@@ -14,11 +14,12 @@ export class ClubService {
   constructor(private httpClient: HttpClient) {}
 
   getClubs(): Observable<ClubFileData> {
+    // NOTE: the url has to end with a '/', which matches the backend's endpoint,
+    // otherwise will lead to a weird 'Mixed content' issue
     return this.httpClient.get<ClubFileData>(`${API_ENDPOINT}/clubs/`);
   }
 
   saveClubs(data: ClubFileData): Observable<ClubFileData> {
     return this.httpClient.post<ClubFileData>(`${API_ENDPOINT}/clubs/`, data);
   }
-
 }

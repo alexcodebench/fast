@@ -1,6 +1,7 @@
 from typing import List
 import json
 import os
+import socket
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,26 +11,29 @@ from starlette.requests import Request
 from .models import Club, FileData
 
 
-# origins = [
-#     "http://localhost",
-#     "http://localhost:4200",
-#     "https://fastclub.peekapage.com"
-# ]
-
 parent_dir_path = os.path.dirname(os.path.realpath(__file__))
 DATA_FILE_PATE = os.path.join(parent_dir_path, "data/data.json")
 
 app = FastAPI()
 
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_origin_regex='https://.*\.peekapage\.com',
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-#     expose_headers=["*"]
-# )
+# Resolve CORS
+is_dev_env = 'TRUE' == os.environ.get('DEV_FASTAPI', '')
+if is_dev_env:
+    origins = [
+        "http://localhost",
+        "http://localhost:4200",
+        "https://fastclub.peekapage.com"
+    ]
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_origin_regex='https://.*\.peekapage\.com',
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["*"]
+    )
 
 
 def read_data(file_path: str) -> FileData:
@@ -48,7 +52,8 @@ def write_data(file_path: str, file_data: FileData):
 # def get_cors() -> List[str]:
 #     return origins
 
-@app.get("/clubs/")
+
+@app.get("/clubs/", status_code=200)
 def get_clubs(request: Request) -> List[Club]:
     print('========')
     print(request.headers)
@@ -57,7 +62,7 @@ def get_clubs(request: Request) -> List[Club]:
     return clubs
 
 
-@app.post("/clubs/")
+@app.post("/clubs/", status_code=201)
 def post_clubs(file_data: FileData) -> List[Club]:
     print(file_data)
     write_data(DATA_FILE_PATE, file_data)
