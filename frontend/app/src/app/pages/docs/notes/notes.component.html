@@ -1,0 +1,72 @@
+<div style="overflow-y: auto; height: 100%">
+  <h1 id="dependencies-and-compatibilities-issues">
+    Dependencies and Compatibilities Issues
+  </h1>
+  <h2 id="needed-libraries">Needed Libraries</h2>
+  <ul>
+    <li>
+      <p>
+        <a href="https://ng.ant.design/docs/introduce/en">ng-zorro</a> <br />
+        Its table system is quite handy, especially for nested tables
+      </p>
+    </li>
+    <li>
+      <p>
+        <a href="https://github.com/1-2-3/zorro-sharper">zorro-sharper</a>
+        <br />
+        This is needed to fix ng-zorro's problem — table content overflow out of
+        page bottom
+      </p>
+    </li>
+  </ul>
+  <h2 id="issues">Issues</h2>
+  <ul>
+    <li>
+      <p>Version Conflicts</p>
+      <ul>
+        <li>Angular: 13 -&gt; 11</li>
+        <li>ng-zorro: 12 -&gt; 11</li>
+        <li>zorro-sharper: 11</li>
+      </ul>
+    </li>
+    <li>
+      <p>Dependency issues</p>
+      <ul>
+        <li>
+          zorro-sharper has problem loading due to version conflict with its
+          dependency
+          <a href="https://github.com/ng-alain/delon">@delon/abc</a><br />
+          Need to manually fix it by uninstalling and reinstall a proper version
+          (11.x): <br />
+          <pre><code>
+            npm uninstall @delon/abc npm install @delon/abc@11.10.4
+          </code></pre>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>CORS</p>
+      <ul>
+        <li>Configs for CORS could be done either using Nginx or FastAPI</li>
+        <li>
+          However, when FastAPI is behind an Nginx proxy and using HTTPS
+          protocol, there seems to be a bug in FastAPI's CORS middleware. Some
+          tweaks are needed on both Nginx config and FastAPI:
+          <ul>
+            <li>
+              Avoid rewriting URL unintentionally on both Nginx and the
+              FastAPI app
+            </li>
+            <li>
+              Trailing slash on the URL could cause problem. Make sure
+              matching endpoint URLs between front and back end exactly
+              (including trailing slash '/')
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+

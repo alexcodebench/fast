@@ -14,6 +14,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class MembersTableComponent implements OnInit {
   clubs: ClubVM[] = [];
+  isLoading = false;
 
   tableEdited = false;
   compareFuncs = {
@@ -52,15 +53,23 @@ export class MembersTableComponent implements OnInit {
       );
   }
 
+
+  reload(): void {
+    this.loadData();
+    this.tableEdited = false;
+  }
+
   onTableEdited(_): void {
     this.tableEdited = true;
     console.log(_);
   }
 
-  ngOnInit(): void {
+  private loadData(){
+    this.isLoading = true;
     this.clubService.getClubs().subscribe(
       (data) => {
         this.clubs = data.clubs.map((c: Club) => new ClubVM(c));
+        this.isLoading = false;
       },
 
       (error: any) => {
@@ -69,7 +78,12 @@ export class MembersTableComponent implements OnInit {
           'Failed to retrieve club information'
         );
         console.error(error);
+        this.isLoading = false;
       }
     );
+  }
+
+  ngOnInit(): void {
+    this.loadData();
   }
 }

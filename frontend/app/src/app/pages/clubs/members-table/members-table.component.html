@@ -1,4 +1,30 @@
 <nz-card nsAutoHeightCard>
+  <nz-button-group [style.display]="!isLoading">
+    <button
+      nz-button
+      [nzLoading]="isLoading"
+      (click)="save()"
+      [disabled]="!tableEdited"
+      nzType="primary"
+      nz-tooltip
+      nzTooltipTitle="Save changes"
+    >
+      Save
+    </button>
+    <button
+      nz-button
+      (click)="reload()"
+      [nzLoading]="isLoading"
+      [disabled]="!tableEdited"
+      nzType="danger"
+      nz-tooltip
+      nzTooltipTitle="Reset all table data"
+    >
+      Reset
+    </button>
+    <nz-spin [nzSpinning]="isLoading" [nzDelay]="500"></nz-spin>
+
+  </nz-button-group>
   <nz-table
     #nestedTable
     nzOuterBordered
@@ -8,22 +34,14 @@
   >
     <thead>
       <tr>
-        <th>
-          <button
-            nz-button
-            (click)="save()"
-            [disabled]="!tableEdited"
-            nzType="danger"
-          >
-            Done/Save
-          </button>
-        </th>
+        <th></th>
         <th [nzSortFn]="compareFuncs.compareClubName">Club Name</th>
         <th [nzSortFn]="compareFuncs.compareClubAddress">Address</th>
         <th [nzSortFn]="compareFuncs.compareClubSize">Club Members</th>
       </tr>
     </thead>
     <tbody>
+
       <ng-template ngFor let-data [ngForOf]="nestedTable.data">
         <tr class="parent-row">
           <td [(nzExpand)]="data.expand"></td>

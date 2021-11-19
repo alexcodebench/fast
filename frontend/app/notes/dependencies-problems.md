@@ -20,5 +20,9 @@ Need to manually fix it by uninstalling and reinstall a proper version (11.x): <
     npm uninstall @delon/abc
     npm install @delon/abc@11.10.4
     ```
-  - ...
+* CORS
+  - Configs for CORS could be done either using Nginx or FastAPI
+  - However, when FastAPI is behind an Nginx proxy and using HTTPS protocol, there seems to be a bug in FastAPI's CORS middleware. Some tweaks are needed on both Nginx config and FastAPI:
+    - Avoid rewriting URL unintentionally on both Nginx and the FastAPI app
+    - Trailing slash on the URL could cause problem. Make sure matching endpoint URLs between front and back end exactly (including trailing slash '/')
 
