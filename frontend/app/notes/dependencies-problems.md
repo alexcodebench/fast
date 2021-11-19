@@ -1,4 +1,8 @@
-# Dependencies and Compatibilities Issues
+# Notes about Development
+
+## Project Setup
+
+* On the way...
 
 ## Needed Libraries
 
